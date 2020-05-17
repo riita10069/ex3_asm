@@ -9,22 +9,23 @@
 上記のいずれかを使用することを想定しています。
 
 ### WSL
-sh run_wsl.sh
+`sh run_wsl.sh`
 
 ### Docker
-sh run_docker.sh
+`sh run_docker.sh`
 
 ## ファイルの実行方法
 
 ### WSL
-./ex3_asm filename.asm
+`./ex3_asm filename.asm`
 
 ### Docker
-docker run -it {image_name} -v ./asm:. /bin/bash
+`docker run -it {image_name} -v ./asm:. /bin/bash`
+`./ex3_asm filename.asm`
 
 
 正しく環境ができているかを確かめるために、
 test.asmを用意しています。
 
-./ex3_asm test.asm
+`./ex3_asm test.asm`
 
