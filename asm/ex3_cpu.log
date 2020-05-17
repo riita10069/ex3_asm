@@ -1,0 +1,232 @@
+----------------
+label(              JP) :    18(0x0012)
+label(       SavePrime) :    28(0x001c)
+label(      JugdePrime) :    31(0x001f)
+label(          NotTwo) :    42(0x002a)
+label(         OverTwo) :    45(0x002d)
+label(          SetKPM) :    54(0x0036)
+label(         NotEven) :    63(0x003f)
+label(            True) :    88(0x0058)
+label(           False) :    92(0x005c)
+label(  Multiplication) :    95(0x005f)
+label(         MulLoop) :   100(0x0064)
+label(ProductIncreaseR) :   105(0x0069)
+label( ProductIncrease) :   112(0x0070)
+label(             MOD) :   116(0x0074)
+label(              DD) :   129(0x0081)
+label(             DDR) :   133(0x0085)
+label(             FOR) :   140(0x008c)
+label(           ENDIF) :   153(0x0099)
+label(         ToERROR) :   163(0x00a3)
+label(         WaitOut) :   168(0x00a8)
+label(               A) :   174(0x00ae)
+label(               B) :   175(0x00af)
+label(              KP) :   176(0x00b0)
+label(            KPMM) :   177(0x00b1)
+label(             KPM) :   178(0x00b2)
+label(             Two) :   179(0x00b3)
+label(            TMPP) :   180(0x00b4)
+label(           PFlag) :   181(0x00b5)
+label(             Num) :   182(0x00b6)
+label(        Dividend) :   183(0x00b7)
+label(         Divisor) :   184(0x00b8)
+label(        Quotient) :   185(0x00b9)
+label(       Remainder) :   186(0x00ba)
+label(              KD) :   187(0x00bb)
+label(         CNT_EMG) :   188(0x00bc)
+label(             EMG) :   195(0x00c3)
+label(         BitSize) :   196(0x00c4)
+label(      Multiplier) :   197(0x00c5)
+label(    Multiplicand) :   198(0x00c6)
+label(              KM) :   199(0x00c7)
+label(         Product) :   200(0x00c8)
+----------------
+                  0010 [20ae]: LDA 0ae   (               A)
+                  0011 [30b6]: STA 0b6   (             Num)
+              JP: 0012 [501f]: BSA 01f   (      JugdePrime)
+                  0013 [20b5]: LDA 0b5   (           PFlag)
+                  0014 [7004]: SZA                         
+                  0015 [401c]: BUN 01c   (       SavePrime)
+                  0016 [20b6]: LDA 0b6   (             Num)
+                  0017 [7200]: CMA                         
+                  0018 [7020]: INC                         
+                  0019 [7200]: CMA                         
+                  001a [30b6]: STA 0b6   (             Num)
+                  001b [4012]: BUN 012   (              JP)
+       SavePrime: 001c [20b6]: LDA 0b6   (             Num)
+                  001d [30af]: STA 0af   (               B)
+                  001e [7001]: HLT                         
+      JugdePrime: 001f [001f]: (   31:   31)                 
+///init
+                  0020 [7800]: CLA                         
+                  0021 [30b0]: STA 0b0   (              KP)
+///if num==2, True
+                  0022 [7400]: CLE                         
+                  0023 [20b3]: LDA 0b3   (             Two)
+                  0024 [7200]: CMA                         
+                  0025 [7020]: INC                         
+                  0026 [10b6]: ADD 0b6   (             Num)
+                  0027 [7004]: SZA                         
+                  0028 [402a]: BUN 02a   (          NotTwo)
+                  0029 [4058]: BUN 058   (            True)
+///if num<2, False
+          NotTwo: 002a [7002]: SZE                         
+                  002b [402d]: BUN 02d   (         OverTwo)
+                  002c [405c]: BUN 05c   (           False)
+///if num>2 and num%2==0, False
+         OverTwo: 002d [20b6]: LDA 0b6   (             Num)
+                  002e [30b7]: STA 0b7   (        Dividend)
+                  002f [20b3]: LDA 0b3   (             Two)
+                  0030 [30b8]: STA 0b8   (         Divisor)
+                  0031 [5074]: BSA 074   (             MOD)
+                  0032 [20ba]: LDA 0ba   (       Remainder)
+                  0033 [7004]: SZA                         
+                  0034 [4036]: BUN 036   (          SetKPM)
+                  0035 [405c]: BUN 05c   (           False)
+///if num>2 and num%2==1
+///SetKPM
+          SetKPM: 0036 [7400]: CLE                         
+                  0037 [20b6]: LDA 0b6   (             Num)
+                  0038 [7200]: CMA                         
+                  0039 [7020]: INC                         
+                  003a [10b1]: ADD 0b1   (            KPMM)
+                  003b [20b1]: LDA 0b1   (            KPMM)
+                  003c [7002]: SZE                         
+                  003d [20b6]: LDA 0b6   (             Num)
+                  003e [30b2]: STA 0b2   (             KPM)
+         NotEven: 003f [60b0]: ISZ 0b0   (              KP)
+                  0040 [20b3]: LDA 0b3   (             Two)
+                  0041 [30c6]: STA 0c6   (    Multiplicand)
+                  0042 [20b0]: LDA 0b0   (              KP)
+                  0043 [30c5]: STA 0c5   (      Multiplier)
+                  0044 [505f]: BSA 05f   (  Multiplication)
+                  0045 [20c8]: LDA 0c8   (         Product)
+                  0046 [7020]: INC                         
+                  0047 [30b4]: STA 0b4   (            TMPP)
+                  0048 [20b2]: LDA 0b2   (             KPM)
+                  0049 [7200]: CMA                         
+                  004a [7400]: CLE                         
+                  004b [7020]: INC                         
+                  004c [10b4]: ADD 0b4   (            TMPP)
+                  004d [7002]: SZE                         
+                  004e [4058]: BUN 058   (            True)
+                  004f [20b4]: LDA 0b4   (            TMPP)
+                  0050 [30b8]: STA 0b8   (         Divisor)
+                  0051 [20b6]: LDA 0b6   (             Num)
+                  0052 [30b7]: STA 0b7   (        Dividend)
+                  0053 [5074]: BSA 074   (             MOD)
+                  0054 [20ba]: LDA 0ba   (       Remainder)
+                  0055 [7004]: SZA                         
+                  0056 [403f]: BUN 03f   (         NotEven)
+                  0057 [405c]: BUN 05c   (           False)
+            True: 0058 [7800]: CLA                         
+                  0059 [7020]: INC                         
+                  005a [30b5]: STA 0b5   (           PFlag)
+                  005b [c01f]: BUN 01f I (      JugdePrime)
+           False: 005c [7800]: CLA                         
+                  005d [30b5]: STA 0b5   (           PFlag)
+                  005e [c01f]: BUN 01f I (      JugdePrime)
+///Multiplication
+  Multiplication: 005f [005f]: (   95:  '_')                 
+///init
+                  0060 [20c4]: LDA 0c4   (         BitSize)
+                  0061 [30c7]: STA 0c7   (              KM)
+                  0062 [7800]: CLA                         
+                  0063 [30c8]: STA 0c8   (         Product)
+///Start Calculation
+         MulLoop: 0064 [20c5]: LDA 0c5   (      Multiplier)
+                  0065 [7080]: CIR                         
+                  0066 [30c5]: STA 0c5   (      Multiplier)
+                  0067 [7002]: SZE                         
+                  0068 [4070]: BUN 070   ( ProductIncrease)
+ProductIncreaseR: 0069 [20c6]: LDA 0c6   (    Multiplicand)
+                  006a [7400]: CLE                         
+                  006b [7040]: CIL                         
+                  006c [30c6]: STA 0c6   (    Multiplicand)
+                  006d [60c7]: ISZ 0c7   (              KM)
+                  006e [4064]: BUN 064   (         MulLoop)
+                  006f [c05f]: BUN 05f I (  Multiplication)
+ ProductIncrease: 0070 [20c8]: LDA 0c8   (         Product)
+                  0071 [10c6]: ADD 0c6   (    Multiplicand)
+                  0072 [30c8]: STA 0c8   (         Product)
+                  0073 [4069]: BUN 069   (ProductIncreaseR)
+///MOD
+             MOD: 0074 [0074]: (  116:  't')                 
+///init
+                  0075 [7800]: CLA                         
+                  0076 [30b9]: STA 0b9   (        Quotient)
+                  0077 [20b7]: LDA 0b7   (        Dividend)
+                  0078 [30ba]: STA 0ba   (       Remainder)
+                  0079 [7400]: CLE                         
+                  007a [7800]: CLA                         
+                  007b [7020]: INC                         
+                  007c [30bb]: STA 0bb   (              KD)
+/// WHILE
+                  007d [20b8]: LDA 0b8   (         Divisor)
+                  007e [7004]: SZA                         
+                  007f [4085]: BUN 085   (             DDR)
+                  0080 [40a3]: BUN 0a3   (         ToERROR)
+///Double Divisor
+              DD: 0081 [60bb]: ISZ 0bb   (              KD)
+                  0082 [7400]: CLE                         
+                  0083 [7040]: CIL                         
+                  0084 [4085]: BUN 085   (             DDR)
+             DDR: 0085 [7008]: SNA                         
+                  0086 [4081]: BUN 081   (              DD)
+                  0087 [30b8]: STA 0b8   (         Divisor)
+                  0088 [20bb]: LDA 0bb   (              KD)
+                  0089 [7200]: CMA                         
+                  008a [7020]: INC                         
+                  008b [30bb]: STA 0bb   (              KD)
+/// FOR
+             FOR: 008c [20b9]: LDA 0b9   (        Quotient)
+                  008d [7400]: CLE                         
+                  008e [7040]: CIL                         
+                  008f [30b9]: STA 0b9   (        Quotient)
+                  0090 [20b8]: LDA 0b8   (         Divisor)
+                  0091 [7200]: CMA                         
+                  0092 [7020]: INC                         
+                  0093 [10ba]: ADD 0ba   (       Remainder)
+                  0094 [7100]: CME                         
+                  0095 [7002]: SZE                         
+                  0096 [4099]: BUN 099   (           ENDIF)
+                  0097 [30ba]: STA 0ba   (       Remainder)
+                  0098 [60b9]: ISZ 0b9   (        Quotient)
+           ENDIF: 0099 [20b8]: LDA 0b8   (         Divisor)
+                  009a [7400]: CLE                         
+                  009b [7080]: CIR                         
+                  009c [30b8]: STA 0b8   (         Divisor)
+                  009d [60bb]: ISZ 0bb   (              KD)
+                  009e [408c]: BUN 08c   (             FOR)
+                  009f [20b8]: LDA 0b8   (         Divisor)
+                  00a0 [7040]: CIL                         
+                  00a1 [30b8]: STA 0b8   (         Divisor)
+                  00a2 [c074]: BUN 074 I (             MOD)
+         ToERROR: 00a3 [00a3]: (  163:  163)                 
+                  00a4 [20c3]: LDA 0c3   (             EMG)
+                  00a5 [10bc]: ADD 0bc   (         CNT_EMG)
+                  00a6 [30a3]: STA 0a3   (         ToERROR)
+                  00a7 [a0a3]: LDA 0a3 I (         ToERROR)
+         WaitOut: 00a8 [f100]: SKO                         
+                  00a9 [40a8]: BUN 0a8   (         WaitOut)
+                  00aa [f400]: OUT                         
+                  00ab [60bc]: ISZ 0bc   (         CNT_EMG)
+                  00ac [40a3]: BUN 0a3   (         ToERROR)
+                  00ad [7001]: HLT                         
+///DATA
+               A: 00ae [ffee]: (  -18:65518)                 
+               B: 00af [0000]: (    0:    0)                 
+///JugdePrime Parameters
+              KP: 00b0 [0000]: (    0:    0)                 
+            KPMM: 00b1 [0100]: (  256:  256)                 
+             KPM: 00b2 [0000]: (    0:    0)                 
+             Two: 00b3 [0002]: (    2:    2)                 
+            TMPP: 00b4 [0000]: (    0:    0)                 
+           PFlag: 00b5 [ffff]: (   -1:65535)                 	///if Num==PrimeNumber, 1
+             Num: 00b6 [0000]: (    0:    0)                 
+///MOD
+        Dividend: 00b7 [0000]: (    0:    0)                 
+         Divisor: 00b8 [0000]: (    0:    0)                 
+        Quotient: 00b9 [0000]: (    0:    0)                 
+       Remainder: 00ba [0000]: (    0:    0)                 
+              KD: 00bb [0000]: (    0:    0
